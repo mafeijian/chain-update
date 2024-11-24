@@ -1,0 +1,3 @@
+// run npm with a registry mirror.
+
+npm install --registry=https://registry.npmmirror.com/
