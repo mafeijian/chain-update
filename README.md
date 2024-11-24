@@ -1,4 +1,4 @@
-# graphics-viewer
+# chain-update
 
 ## Getting started
 
@@ -10,7 +10,7 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://github.com/mafeijian/graphics-viewer.git
+git remote add origin https://github.com/mafeijian/chain-update.git
 git branch -M master
 git push -uf origin master
 ```
