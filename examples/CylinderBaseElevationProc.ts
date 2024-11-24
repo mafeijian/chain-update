@@ -1,5 +1,22 @@
 import { Arg, ArgType, ErrorStatus, IRegenDoc, UpdateProc } from '../src';
 
+/**
+ *
+ * baseCylinder.topElev
+ *          |
+ *          v
+ *    +-----------+ +-----------+
+ *     \           V           /
+ *      \                     /
+ *       \     UpdateProc    /
+ *        \                 /
+ *         \               /
+ *          +-------------+
+ *                 |
+ *                 v
+ *              baseElev
+ */
+
 export class CylinderBaseElevationProc extends UpdateProc {
   getInputArgs(doc: IRegenDoc): Arg[] {
     const inputArgs: Arg[] = [];

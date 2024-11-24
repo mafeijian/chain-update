@@ -1,6 +1,23 @@
 import { Arg, ErrorStatus, IRegenDoc, UpdateProc } from '../src';
 import { ArgType } from '../src/ArgType';
 
+/**
+ *
+ *       baseElev       height
+ *          |             |
+ *          v             v
+ *    +-----------+ +-----------+
+ *     \           V           /
+ *      \                     /
+ *       \     UpdateProc    /
+ *        \                 /
+ *         \               /
+ *          +-------------+
+ *                 |
+ *                 v
+ *              topElev
+ */
+
 export class CylinderTopElevationProc extends UpdateProc {
   // eslint-disable-next-line class-methods-use-this
   getInputArgs(doc: IRegenDoc): Arg[] {
