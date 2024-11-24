@@ -24,6 +24,7 @@ export class ChainCore {
     this.doc = doc;
     this.cache = new PropCache(this, doc);
     this.depen = new ObjectDepen(this.doc);
+    this.graph = new GraphLib.Graph();
   }
 
   touchArg(arg: Arg): void {
@@ -43,7 +44,7 @@ export class ChainCore {
     }
   }
 
-  regenerate() {
+  regen() {
     this.graph = new GraphLib.Graph();
 
     try {
@@ -52,7 +53,7 @@ export class ChainCore {
       const executeSteps = this.executeProcs(this.sortProcs());
     } catch (error) {
       const cycles = GraphLib.alg.findCycles(this.graph);
-      assert(() => cycles.length > 0, `fail to regenerate with cycle ${cycles}: ${error}`);
+      assert(() => cycles.length < 1, `fail to regenerate with cycle ${cycles}: ${error}`);
     } finally {
       this.clear();
     }
@@ -127,7 +128,7 @@ export class ChainCore {
     const relateProcs = procs.filter(proc => proc.result.equals(arg));
 
     if (relateProcs.length > 0) {
-      alert(() => relateProcs.length > 1, `${argObj.getCategory()} has multi procedures for result arg ${arg.type}`);
+      alert(() => relateProcs.length === 1, `${argObj.getCategory()} has multi procedures for result arg ${arg.type}`);
       return relateProcs[0];
     }
 

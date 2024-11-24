@@ -1,10 +1,23 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
-import { WebGLRenderer, Scene, sRGBEncoding, EventDispatcher, PCFSoftShadowMap, AmbientLight, ReinhardToneMapping } from 'three';
+import {
+  WebGLRenderer,
+  Scene,
+  sRGBEncoding,
+  EventDispatcher,
+  PCFSoftShadowMap,
+  AmbientLight,
+  ReinhardToneMapping,
+  Vector2,
+  Object3D,
+  Mesh
+} from 'three';
 
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { CameraMgr } from './CameraMgr';
 import { Doc } from './Doc';
+import { CylinderObj } from './CylinderObj';
+import { AObjectId, ArgType } from '../src';
 
 class ThreeViewer extends EventDispatcher {
   domElement: HTMLElement;
@@ -24,6 +37,8 @@ class ThreeViewer extends EventDispatcher {
   stats: Stats | undefined;
 
   doc: Doc;
+
+  cylinderIds: AObjectId[] = [];
 
   constructor(element: HTMLElement) {
     super();
@@ -46,6 +61,21 @@ class ThreeViewer extends EventDispatcher {
     this.scene.add(new AmbientLight(0xffffff, 0.8));
 
     this.doc = new Doc();
+    const center = new Vector2(0, -1); // {x, z}
+    const cylinder1 = new CylinderObj();
+    cylinder1.center.copy(center);
+    cylinder1.radius = 0.1;
+    cylinder1.height = 0.12;
+    this.doc.addAObject(cylinder1);
+    const cylinder2 = new CylinderObj();
+    cylinder2.center.copy(center);
+    cylinder2.radius = 0.05;
+    cylinder2.height = 0.08;
+    this.doc.addAObject(cylinder2);
+
+    cylinder2.baseCylinderId = cylinder1.Id(); // cylinder 2 is on the top of 1.
+
+    this.cylinderIds.push(cylinder1.Id(), cylinder2.Id());
 
     const enableStats = true;
     if (enableStats) {
@@ -99,6 +129,33 @@ class ThreeViewer extends EventDispatcher {
     //     }
     //   });
     // }
+    const visible: Object3D[] = [];
+    this.scene.traverseVisible(obj3D => {
+      visible.push(obj3D);
+    });
+    visible.forEach(obj3D => {
+      obj3D.removeFromParent();
+      if (obj3D instanceof Mesh) {
+        obj3D.geometry.dispose();
+        obj3D.material.dispose();
+      }
+    });
+
+    this.cylinderIds.forEach(id => {
+      const cylinder = this.doc.getAObject(id);
+      if (cylinder) {
+        this.doc.touchArg(cylinder.createArg(ArgType.BaseElevation));
+      }
+    });
+
+    this.doc.regen();
+
+    this.cylinderIds.forEach(id => {
+      const cylinder = this.doc.getAObject(id);
+      if (cylinder instanceof CylinderObj) {
+        this.scene.add(cylinder.getGraphics());
+      }
+    });
 
     const { renderer, scene, cameraMgr } = this;
     const camera = cameraMgr.getCamera();

@@ -1,6 +1,5 @@
 import { Arg, ErrorStatus, IRegenDoc, UpdateProc } from '../src';
 import { ArgType } from '../src/ArgType';
-import { CylinderObj } from './CylinderObj';
 
 export class CylinderTopElevationProc extends UpdateProc {
   // eslint-disable-next-line class-methods-use-this
@@ -9,7 +8,7 @@ export class CylinderTopElevationProc extends UpdateProc {
     const arg = this.getResultArg();
     const id = arg.getAObjId();
     const obj = doc.getAObject(id);
-    if (obj instanceof CylinderObj) {
+    if (obj) {
       inputArgs.push(obj.createArg(ArgType.BaseElevation), obj.createArg(ArgType.Height));
     }
     return inputArgs;
@@ -19,8 +18,8 @@ export class CylinderTopElevationProc extends UpdateProc {
     const arg = this.getResultArg();
     const id = arg.getAObjId();
     const obj = doc.getAObject(id);
-    if (obj instanceof CylinderObj) {
-      obj.topElevation = obj.baseElevation + obj.height;
+    if (obj) {
+      (obj as any).topElevation = (obj as any).baseElevation + (obj as any).height;
       return ErrorStatus.Success;
     }
     return ErrorStatus.Failure;

@@ -1,5 +1,4 @@
 import { Arg, ArgType, ErrorStatus, IRegenDoc, UpdateProc } from '../src';
-import { CylinderObj } from './CylinderObj';
 
 export class CylinderBaseElevationProc extends UpdateProc {
   getInputArgs(doc: IRegenDoc): Arg[] {
@@ -7,11 +6,11 @@ export class CylinderBaseElevationProc extends UpdateProc {
     const arg = this.getResultArg();
     const id = arg.getAObjId();
     const obj = doc.getAObject(id);
-    if (obj instanceof CylinderObj) {
-      const baseId = obj.baseCylinderId;
+    if (obj) {
+      const baseId = (obj as any).baseCylinderId;
       if (baseId) {
         const baseObj = doc.getAObject(baseId);
-        if (baseObj instanceof CylinderObj) {
+        if (baseObj) {
           inputArgs.push(baseObj.createArg(ArgType.TopElevation));
         }
       }
@@ -23,12 +22,12 @@ export class CylinderBaseElevationProc extends UpdateProc {
     const arg = this.getResultArg();
     const id = arg.getAObjId();
     const obj = doc.getAObject(id);
-    if (obj instanceof CylinderObj) {
-      const baseId = obj.baseCylinderId;
+    if (obj) {
+      const baseId = (obj as any).baseCylinderId;
       if (baseId) {
         const baseObj = doc.getAObject(baseId);
-        if (baseObj instanceof CylinderObj) {
-          obj.baseElevation = baseObj.topElevation;
+        if (baseObj) {
+          (obj as any).baseElevation = (baseObj as any).topElevation;
           return ErrorStatus.Success;
         }
       }

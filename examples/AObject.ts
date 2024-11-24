@@ -77,6 +77,6 @@ export class AObject implements IRegenObj {
 
   // eslint-disable-next-line class-methods-use-this, no-unused-vars
   createArg(argType: string, data?: number): Arg {
-    return new Arg(this.Id(), argType, data);
+    return Arg.create(this.Id(), argType, data);
   }
 }

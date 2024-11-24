@@ -1,4 +1,4 @@
-import { Vector2 } from 'three';
+import { CylinderGeometry, Mesh, MeshBasicMaterial, Object3D, Vector2 } from 'three';
 import { AObjectId, ArgType, UpdateProc } from '../src';
 import { AObject } from './AObject';
 import { CylinderBaseElevationProc } from './CylinderBaseElevationProc';
@@ -17,11 +17,14 @@ export class CylinderObj extends AObject {
 
   center: Vector2;
 
+  radius: number;
+
   constructor() {
     super();
     this.center = new Vector2();
     this.baseElevation = 0;
-    this.height = 1;
+    this.height = 0.5;
+    this.radius = 0.5;
     this.topElevation = this.baseElevation + this.height;
   }
 
@@ -45,5 +48,13 @@ export class CylinderObj extends AObject {
   // eslint-disable-next-line class-methods-use-this
   getUpdateProcs(): UpdateProc[] {
     return [new CylinderBaseElevationProc(this.createArg(ArgType.BaseElevation)), new CylinderTopElevationProc(this.createArg(ArgType.TopElevation))];
+  }
+
+  getGraphics(): Object3D {
+    const mesh = new Mesh(new CylinderGeometry(this.radius, this.radius, this.height), new MeshBasicMaterial({ color: 0x3344ff }));
+    mesh.position.setZ(this.center.y);
+    mesh.position.setX(this.center.x);
+    mesh.position.setY(0.5 * (this.baseElevation + this.topElevation));
+    return mesh;
   }
 }
