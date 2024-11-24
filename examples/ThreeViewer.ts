@@ -130,13 +130,16 @@ class ThreeViewer extends EventDispatcher {
       }
     });
 
+    // it should be event driven other than happen here.
     this.cylinderIds.forEach(id => {
       const cylinder = this.doc.getAObject(id);
       if (cylinder) {
+        // whenever the argument change just touch it.
         this.doc.touchArg(cylinder.createArg(ArgType.BaseElevation));
       }
     });
 
+    // calculate one time to make document consistent for all the touches above.
     this.doc.regen();
 
     this.cylinderIds.forEach(id => {
