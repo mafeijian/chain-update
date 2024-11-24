@@ -118,17 +118,6 @@ class ThreeViewer extends EventDispatcher {
   render() {
     this.stats?.update();
 
-    // here is example how to update ui for dynamic view contents.
-    // if (this.gview.dirty) {
-    //   this.gview.onAdd(obj3D => this.scene.add(obj3D));
-    //   this.gview.onDel(obj3D => {
-    //     obj3D.removeFromParent();
-    //     if (obj3D instanceof Mesh) {
-    //       obj3D.geometry.dispose();
-    //       obj3D.material.dispose();
-    //     }
-    //   });
-    // }
     const visible: Object3D[] = [];
     this.scene.traverseVisible(obj3D => {
       visible.push(obj3D);
