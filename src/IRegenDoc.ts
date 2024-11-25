@@ -2,24 +2,13 @@ import { AObjectId } from './AObjectId';
 import { Arg } from './Arg';
 import { IDepenDoc } from './IDepenDoc';
 import { IRegenObj } from './IRegenObj';
-import { ChainCore } from './regen/ChainCore';
 
-export abstract class IRegenDoc extends IDepenDoc {
-  core: ChainCore;
-
-  constructor() {
-    super();
-    this.core = new ChainCore(this);
-  }
+export interface IRegenDoc extends IDepenDoc {
+  // eslint-disable-next-line no-unused-vars
+  getAObject(id: AObjectId): IRegenObj | undefined;
 
   // eslint-disable-next-line no-unused-vars
-  abstract getAObject(id: AObjectId): IRegenObj | undefined;
+  touchArg(arg: Arg);
 
-  touchArg(arg: Arg): void {
-    this.core.touchArg(arg);
-  }
-
-  regen() {
-    this.core.regen();
-  }
+  regen();
 }

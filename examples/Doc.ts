@@ -1,13 +1,23 @@
-import { AObjectId, IRegenDoc, IRegenObj } from '../src';
+import { AObjectId, Arg, ChainCore, IRegenDoc, IRegenObj } from '../src';
 
-export class Doc extends IRegenDoc {
+export class Doc implements IRegenDoc {
+  core: ChainCore;
+
   latestObjId: number = 0;
 
   objects: IRegenObj[];
 
   constructor() {
-    super();
+    this.core = new ChainCore(this);
     this.objects = [];
+  }
+
+  touchArg(arg: Arg) {
+    this.core.touchArg(arg);
+  }
+
+  regen() {
+    this.core.regen();
   }
 
   private allocObjId() {
