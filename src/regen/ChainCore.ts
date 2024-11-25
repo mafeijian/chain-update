@@ -59,22 +59,22 @@ export class ChainCore {
     }
   }
 
-  private processed: Set<string> = new Set<string>();
+  private propgatedArgs: Set<string> = new Set<string>();
 
   private propagateTouches() {
     this.doc.getAObjects().forEach(o => this.depen.rebuildDependency(o));
     this.cache = new PropCache(this, this.doc);
-    this.processed.clear();
+    this.propgatedArgs.clear();
     this.touchedArgs.forEach(arg => this.propagate(this.getProc(arg)));
     this.cache.clear();
   }
 
   private propagate(proc: UpdateProc) {
     const arg = proc.result;
-    if (this.processed.has(arg.toString())) {
+    if (this.propgatedArgs.has(arg.toString())) {
       return;
     }
-    this.processed.add(arg.toString());
+    this.propgatedArgs.add(arg.toString());
     const propagatingObjs = this.cache.getPropagatableObjs(this.getPropagatableObjs, arg);
     propagatingObjs.forEach(propagatingObj => {
       const iteratingProcs = this.cache.getUpdateProcs(propagatingObj);
