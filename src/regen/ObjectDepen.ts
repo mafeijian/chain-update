@@ -24,23 +24,14 @@ export class ObjectDepen {
         parentsToAdd.push(cp);
       }
     });
+
     obj.getParents().forEach(p => {
       if (!currentParents.some(cp => cp === p)) {
         parentsToDel.push(p);
       }
     });
-    return this.updateDependency(obj, parentsToDel, parentsToAdd);
-  }
 
-  /**
-   * update parent of obj and child of parent
-   * @param obj
-   * @param parentsToDel
-   * @param parentsToAdd
-   * @private
-   */
-  private updateDependency(obj: IDepenObj, parentsToDel: AObjectId[], parentsToAdd: AObjectId[]) {
-    if (parentsToDel.length < 1 && parentsToAdd.length < 1) {
+    if (parentsToDel.length + parentsToAdd.length < 1) {
       return false;
     }
 
@@ -59,6 +50,7 @@ export class ObjectDepen {
       }
       obj.addParent(parentId);
     });
+
     return true;
   }
 
