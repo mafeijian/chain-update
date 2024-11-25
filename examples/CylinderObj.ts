@@ -1,5 +1,5 @@
 import { CylinderGeometry, Mesh, MeshBasicMaterial, Object3D, Vector2 } from 'three';
-import { AObjectId, ArgType, UpdateProc } from '../src';
+import { AObjectId, UpdateProc } from '../src';
 import { AObject } from './AObject';
 import { CylinderBaseElevationProc } from './CylinderBaseElevationProc';
 import { CylinderTopElevationProc } from './CylinderTopElevationProc';
@@ -47,7 +47,7 @@ export class CylinderObj extends AObject {
 
   // eslint-disable-next-line class-methods-use-this
   getUpdateProcs(): UpdateProc[] {
-    return [new CylinderBaseElevationProc(this.createArg(ArgType.BaseElevation)), new CylinderTopElevationProc(this.createArg(ArgType.TopElevation))];
+    return [new CylinderBaseElevationProc(this), new CylinderTopElevationProc(this)];
   }
 
   getGraphics(): Object3D {

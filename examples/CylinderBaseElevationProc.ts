@@ -1,4 +1,4 @@
-import { Arg, ArgType, ErrorStatus, IRegenDoc, UpdateProc } from '../src';
+import { Arg, ArgType, ErrorStatus, IRegenDoc, IRegenObj, UpdateProc } from '../src';
 
 /**
  *
@@ -18,6 +18,10 @@ import { Arg, ArgType, ErrorStatus, IRegenDoc, UpdateProc } from '../src';
  */
 
 export class CylinderBaseElevationProc extends UpdateProc {
+  constructor(obj: IRegenObj) {
+    super(obj.createArg(ArgType.BaseElevation));
+  }
+
   getInputArgs(doc: IRegenDoc): Arg[] {
     const inputArgs: Arg[] = [];
     const arg = this.getResultArg();

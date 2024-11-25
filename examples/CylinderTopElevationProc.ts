@@ -1,4 +1,4 @@
-import { Arg, ErrorStatus, IRegenDoc, UpdateProc } from '../src';
+import { Arg, ErrorStatus, IRegenDoc, IRegenObj, UpdateProc } from '../src';
 import { ArgType } from '../src/ArgType';
 
 /**
@@ -19,7 +19,10 @@ import { ArgType } from '../src/ArgType';
  */
 
 export class CylinderTopElevationProc extends UpdateProc {
-  // eslint-disable-next-line class-methods-use-this
+  constructor(obj: IRegenObj) {
+    super(obj.createArg(ArgType.TopElevation));
+  }
+
   getInputArgs(doc: IRegenDoc): Arg[] {
     const inputArgs: Arg[] = [];
     const arg = this.getResultArg();
