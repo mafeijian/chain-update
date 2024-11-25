@@ -48,6 +48,10 @@ export class CylinderBaseElevationProc extends UpdateProc {
       if (baseId) {
         const baseObj = doc.getAObject(baseId);
         if (baseObj) {
+          if ((obj as any).baseElevation === (baseObj as any).topElevation) {
+            return ErrorStatus.Unchanged;
+          }
+
           (obj as any).baseElevation = (baseObj as any).topElevation;
           return ErrorStatus.Success;
         }

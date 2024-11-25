@@ -39,7 +39,12 @@ export class CylinderTopElevationProc extends UpdateProc {
     const id = arg.getAObjId();
     const obj = doc.getAObject(id);
     if (obj) {
-      (obj as any).topElevation = (obj as any).baseElevation + (obj as any).height;
+      const topElev = (obj as any).baseElevation + (obj as any).height;
+      if ((obj as any).topElevation === topElev) {
+        return ErrorStatus.Unchanged;
+      }
+
+      (obj as any).topElevation = topElev;
       return ErrorStatus.Success;
     }
     return ErrorStatus.Failure;
