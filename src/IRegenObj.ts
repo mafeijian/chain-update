@@ -1,22 +1,7 @@
 import { Arg } from './Arg';
 import { AObjectId } from './AObjectId';
 import { UpdateProc } from './regen/UpdateProc';
-
-export interface IDepenObj {
-  Id(): AObjectId;
-  getTotalParents(): AObjectId[];
-  getPartialParents(): AObjectId[];
-  // eslint-disable-next-line no-unused-vars
-  addParent(id: AObjectId);
-  // eslint-disable-next-line no-unused-vars
-  delParent(id: AObjectId);
-  // eslint-disable-next-line no-unused-vars
-  addChild(id: AObjectId);
-  // eslint-disable-next-line no-unused-vars
-  delChild(id: AObjectId);
-  getParents(): AObjectId[];
-  getChildren(): AObjectId[];
-}
+import { IDepenObj } from './IDepenObj';
 
 export interface IRegenObj extends IDepenObj {
   // eslint-disable-next-line no-unused-vars

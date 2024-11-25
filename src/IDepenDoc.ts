@@ -1,5 +1,5 @@
 import { AObjectId } from './AObjectId';
-import { IDepenObj } from './IRegenObj';
+import { IDepenObj } from './IDepenObj';
 
 export abstract class IDepenDoc {
   abstract getAObjects(): IDepenObj[];

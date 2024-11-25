@@ -1,6 +1,6 @@
 import { AObjectId } from '../AObjectId';
 import { IDepenDoc } from '../IDepenDoc';
-import { IDepenObj } from '../IRegenObj';
+import { IDepenObj } from '../IDepenObj';
 import { unique } from '../Unique';
 
 export class ObjectDepen {
