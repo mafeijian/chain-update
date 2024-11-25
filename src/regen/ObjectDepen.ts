@@ -16,20 +16,20 @@ export class ObjectDepen {
    * @returns true if dependency changes，false if no change
    */
   rebuildDependency(obj: IDepenObj): boolean {
-    const toDels: AObjectId[] = [];
-    const toAdds: AObjectId[] = [];
+    const parentsToDel: AObjectId[] = [];
+    const parentsToAdd: AObjectId[] = [];
     const currentParents = unique(obj.getTotalParents().concat(obj.getPartialParents())) as AObjectId[];
     currentParents.forEach(cp => {
       if (!obj.getParents().some(p => cp === p)) {
-        toAdds.push(cp);
+        parentsToAdd.push(cp);
       }
     });
-    obj.getParents().forEach(cp => {
-      if (!currentParents.some(p => cp === p)) {
-        toDels.push(cp);
+    obj.getParents().forEach(p => {
+      if (!currentParents.some(cp => cp === p)) {
+        parentsToDel.push(p);
       }
     });
-    return this.updateDependency(obj, toDels, toAdds);
+    return this.updateDependency(obj, parentsToDel, parentsToAdd);
   }
 
   /**

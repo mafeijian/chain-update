@@ -19,6 +19,6 @@ export class DoNothingProc extends UpdateProc {
   // eslint-disable-next-line class-methods-use-this, no-unused-vars
   execute(doc: IRegenDoc): ErrorStatus {
     // do nothing
-    return ErrorStatus.Success;
+    return ErrorStatus.Unchanged;
   }
 }
