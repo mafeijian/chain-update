@@ -8,7 +8,7 @@ export interface IRegenDoc extends IDepenDoc {
   getAObject(id: AObjectId): IRegenObj | undefined;
 
   // eslint-disable-next-line no-unused-vars
-  touchArg(arg: Arg);
+  touchArg(arg: Arg): void;
 
-  regen();
+  regen(): void;
 }

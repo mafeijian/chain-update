@@ -4,8 +4,9 @@ import { UpdateProc } from './regen/UpdateProc';
 import { IDepenObj } from './IDepenObj';
 
 export interface IRegenObj extends IDepenObj {
+  Id(): AObjectId;
   // eslint-disable-next-line no-unused-vars
-  assignId(id: AObjectId);
+  assignId(id: AObjectId): void;
 
   getCategory(): string;
 

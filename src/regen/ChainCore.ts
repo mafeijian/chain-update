@@ -62,7 +62,7 @@ export class ChainCore {
   private propgatedArgs: Set<string> = new Set<string>();
 
   private propagateTouches() {
-    this.doc.getAObjects().forEach(o => this.depen.rebuildDependency(o));
+    this.doc.forEachAObject(o => this.depen.rebuildDependency(o));
     this.cache = new PropCache(this, this.doc);
     this.propgatedArgs.clear();
     this.touchedArgs.forEach(arg => this.propagate(this.getProc(arg)));
@@ -111,7 +111,7 @@ export class ChainCore {
   }
 
   private sortProcs() {
-    return GraphLib.alg.topsort(this.graph).map(nodeName => this.graph.node(nodeName) as UpdateProc);
+    return GraphLib.alg.topsort(this.graph).map((nodeName: any) => this.graph.node(nodeName) as UpdateProc);
   }
 
   /**

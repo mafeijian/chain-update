@@ -67,7 +67,7 @@ export class ObjectDepen {
   dump() {
     const children = new Map<AObjectId, any>();
     const parents = new Map<AObjectId, any>();
-    this.doc.getAObjects().forEach(e => {
+    this.doc.forEachAObject(e => {
       children.set(e.Id(), e.getChildren());
       parents.set(e.Id(), e.getParents());
     });

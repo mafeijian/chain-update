@@ -5,13 +5,13 @@ export interface IDepenObj {
   getTotalParents(): AObjectId[];
   getPartialParents(): AObjectId[];
   // eslint-disable-next-line no-unused-vars
-  addParent(id: AObjectId);
+  addParent(id: AObjectId): void;
   // eslint-disable-next-line no-unused-vars
-  delParent(id: AObjectId);
+  delParent(id: AObjectId): void;
   // eslint-disable-next-line no-unused-vars
-  addChild(id: AObjectId);
+  addChild(id: AObjectId): void;
   // eslint-disable-next-line no-unused-vars
-  delChild(id: AObjectId);
+  delChild(id: AObjectId): void;
   getParents(): AObjectId[];
   getChildren(): AObjectId[];
 }

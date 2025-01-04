@@ -1,2 +1,3 @@
 type AObjectId = string;
-export { AObjectId };
+const InvallidAObjectId: AObjectId = '-1';
+export { AObjectId, InvallidAObjectId };
